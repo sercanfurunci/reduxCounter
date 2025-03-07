@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: 0,
+  number: 0,
+  editedOpen: false,
 };
 
 export const counterSlice = createSlice({
@@ -24,6 +26,12 @@ export const counterSlice = createSlice({
     decrementByAmount: (state, action) => {
       state.value -= action.payload;
     },
+    setNumber: (state, action) => {
+      state.number = action.payload;
+    },
+    setEditedOpen: (state, action) => {
+      state.editedOpen = action.payload;
+    },
   },
 });
 
@@ -33,6 +41,8 @@ export const {
   reset,
   incrementByAmount,
   decrementByAmount,
+  setNumber,
+  setEditedOpen,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

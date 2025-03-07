@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   increment,
@@ -6,29 +6,30 @@ import {
   reset,
   incrementByAmount,
   decrementByAmount,
+  setNumber,
+  setEditedOpen,
 } from "./redux/counterSlice";
 
 function App() {
-  const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
-  const [number, setNumber] = useState(0);
-  const [editedOpen, setEditedOpen] = useState(false);
-
+  const count = useSelector((state) => state.counter.value);
+  const number = useSelector((state) => state.counter.number);
+  const editedOpen = useSelector((state) => state.counter.editedOpen);
   const handleOnChangeNumber = (e) => {
     console.log("handleonchnage" + e.target.value);
     const numberIncrement = Number(e.target.value);
-    setNumber(numberIncrement);
+    dispatch(setNumber(numberIncrement));
     console.log("number" + number);
   };
 
   const incrementHandle = () => {
     dispatch(incrementByAmount(number));
-    setEditedOpen(false);
+    dispatch(setEditedOpen(false));
   };
 
   const decrementHandle = () => {
     dispatch(decrementByAmount(number));
-    setEditedOpen(false);
+    dispatch(setEditedOpen(false));
   };
   return (
     <div className="container">
@@ -54,7 +55,9 @@ function App() {
             />
           </div>
         ) : (
-          <button onClick={() => setEditedOpen(true)}>BY amount OPEN</button>
+          <button onClick={() => dispatch(setEditedOpen(true))}>
+            BY amount OPEN
+          </button>
         )}
       </div>
     </div>
